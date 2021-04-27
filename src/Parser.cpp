@@ -55,15 +55,12 @@ void Parser::move(Cube &cube, char mov, char mod, int &ctr)
             break;
         case 'X':
             cube.X(mod);
-            ctr++;
             break;
         case 'Y':
             cube.Y(mod);
-            ctr++;
             break;
         case 'Z':
             cube.Z(mod);
-            ctr++;
             break;
     }
 }

@@ -10,7 +10,7 @@ class Parser
 
     Parser();
 
-    // Executes the first move describrd in string move if valid,
+    // Executes the first move described in string move if valid,
     // else throws an exception
     static void move(Cube &cube, std::string str, int &ctr);
 
