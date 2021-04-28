@@ -79,7 +79,7 @@ void Parser::move(Cube &cube, std::string str, int &ctr)
             mov = str[0];
             break;
         default:
-            throw "Invalid move";
+            throw str;
     }
 
     switch (str[1])
@@ -94,7 +94,7 @@ void Parser::move(Cube &cube, std::string str, int &ctr)
             mod = 0;
             break;
         default:
-            throw "Invalid modifier";
+            throw str;
     }
 
     Parser::move(cube, mov, mod, ctr);

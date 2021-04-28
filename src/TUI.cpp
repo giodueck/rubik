@@ -25,7 +25,20 @@ char TUI::listen(Cube &cube, int &ctr)
         std::cin >> ch;
         if (ch == 'Y') return 'q';
     } else
-        Parser::parse(cube, line, ctr);
+    {
+        try
+        {
+            Parser::parse(cube, line, ctr);
+        }
+        catch(std::string msg)
+        {
+            std::cout << "Invalid move detected: " << msg << '\n';
+            std::cout << "Sequence interrupted, all prior moves executed.\n";
+            cube.draw();
+            std::cout << '\n';
+        }
+        
+    }
 
     return 0;
 }

@@ -1,10 +1,9 @@
 # A Rubik's Cube solver as a console program for windows.
-Version 0.2.2
+Version 0.2.3
 Changelog:
 - Beginner algorithm added in the Basic class.
-- Basic: 1st step (white cross) added.
-- Option to print cube at the end of each step added.
-- Now displaying changelog here.
+- Basic: 2nd step (white corners) added.
+- Invalid moves entered now interrupt the sequence instead of terminating the program.
 
 # Several ways to play around
 Pick wether an algorithm should solve the cube or you want to do it manually.

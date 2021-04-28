@@ -26,11 +26,13 @@ int main()
         {
             // create and scramble cube
             Cube cube = Cube();
+            // int dbg = 0;
+            // Parser::parse(cube, (std::string)"D U D2 R L2 E2 L2 D' F' R2 R' M2 U2 R M' S' F S2 S D'", dbg, false);
             cube.scramble(20, true);
 
             if (cline[0] == '0')
             {
-                std::cout << "For help enter 'h' or 'H'\n  To quit enter 'q' or 'Q'\n";
+                std::cout << "  For help enter 'h' or 'H'\n  To quit enter 'q' or 'Q'\n";
                 cube.draw();
                 std::cout << '\n';
                 int moveCtr = 0;

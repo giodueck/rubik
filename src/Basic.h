@@ -19,10 +19,10 @@ class Basic
         std::vector<std::string> moveSets;
 
         // Used to index sequences in moveSets by name
-        enum moveSetNames {
-            WCO_FRU,
-            WCO_FLU,
-            WCO_FRU_U,
+        enum MoveSetNames {
+            WCO_R,
+            WCO_F,
+            WCO_U,
             SL_R,
             SL_L,
             YCR,
@@ -45,8 +45,8 @@ class Basic
         //  Return: total move count
         int solve(Cube &cube, bool printStats = false, bool printSteps = true, int *ctrs = NULL);
 
-        // Executes a move sequence and increments ctr
-        void execute(Cube &cube, std::string sequence, int &ctr);
+        // Executes a move sequence silently and increments ctr
+        void execute(Cube &cube, std::string sequence, int &ctr, bool debug = false);
 
 };
 
