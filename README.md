@@ -1,8 +1,5 @@
 # A Rubik's Cube solver as a console program for windows.
-<<<<<<< HEAD
-Version 0.2.3
-=======
->>>>>>> 217d7411c0c2c1c453a3749b9d47854643419937
+Version 0.2.3\
 Changelog:
 - Beginner algorithm added in the Basic class.
 - Basic: 2nd step (white corners) added.
