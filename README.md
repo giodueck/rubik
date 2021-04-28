@@ -1,5 +1,8 @@
 # A Rubik's Cube solver as a console program for windows.
+<<<<<<< HEAD
 Version 0.2.3
+=======
+>>>>>>> 217d7411c0c2c1c453a3749b9d47854643419937
 Changelog:
 - Beginner algorithm added in the Basic class.
 - Basic: 2nd step (white corners) added.
@@ -12,4 +15,4 @@ Pick wether an algorithm should solve the cube or you want to do it manually.
 To interact with the cube enter space separated sequences of moves in the standard notation (described here: https://ruwix.com/the-rubiks-cube/notation/).
 
 # Algorithm mode
-You have the possibility to see the move count breakdown of the chosen algorithm.
+You have the possibility to see the move count breakdown of the chosen algorithm, and see how each step advanced the solution.
