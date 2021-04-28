@@ -21,7 +21,7 @@ Basic::Basic()
     moveSets.push_back("R' D' R D R' D' R D");
 }
 
-int Basic::solve(Cube &cube, bool printStats, int *ctrs)
+int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
 {
     // Note: the naming of the steps stems from the tendency to orient the cube
     //  white down in humans; the program takes whatever color the center of
@@ -411,6 +411,12 @@ int Basic::solve(Cube &cube, bool printStats, int *ctrs)
                 }
     }
     END_WCR:
+    if (printSteps)
+    {
+        std::cout << "White cross:\n";
+        cube.draw();
+        std::cout << '\n';
+    }
 
     /* Count up moves */
     {
@@ -439,9 +445,9 @@ int Basic::solve(Cube &cube, bool printStats, int *ctrs)
             std::cout << '\t' << YCOtotal << " - Yellow corners\n";
             std::cout << '\t' << YCOOtotal << " - Yellow corner orientations\n";
             std::cout << '\t' << "_________________________________";
-            std::cout << '\t' << total << " - Total moves\n\n";
+            std::cout << '\t' << (total = WCRtotal + WCOtotal + SLtotal + YCRtotal + YEtotal + YCOtotal + YCOOtotal) << " - Total moves\n\n";
         }
-        return total = WCRtotal + WCOtotal + SLtotal + YCRtotal + YEtotal + YCOtotal + YCOOtotal;
+        return total;
     }
 }
 

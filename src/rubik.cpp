@@ -1,8 +1,6 @@
 /* Rubik's Cube solver by Giovanni Dueck
-   Version 0.2.1 'Basic' WIP
+   Version 0.2.x 'Basic' WIP
    27/04/2021
-
-   Changes: Beginner algorithm added in the Basic class, only 1st step done
 */
 
 #include <iostream>
@@ -55,10 +53,16 @@ int main()
                 std::cin >> ch;
                 if (ch == 'Y') stats = true;
 
+                std::cout << "Print cube at the end of key steps? (Y/n) ";
+                bool steps = false;
+                std::cin >> ch;
+                if (ch == 'Y') steps = true;
+
                 Basic solver = Basic();
+                std::cout << "Start:\n";
                 cube.draw();
                 std::cout << '\n';
-                solver.solve(cube, stats);
+                solver.solve(cube, stats, steps);
                 goto END;
             }
         }

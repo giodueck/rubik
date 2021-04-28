@@ -43,7 +43,7 @@ class Basic
         //      printStats will cause a breakdown of the move count by step to be
         //          printed in console
         //  Return: total move count
-        int solve(Cube &cube, bool printStats = false, int *ctrs = NULL);
+        int solve(Cube &cube, bool printStats = false, bool printSteps = true, int *ctrs = NULL);
 
         // Executes a move sequence and increments ctr
         void execute(Cube &cube, std::string sequence, int &ctr);
