@@ -14,7 +14,7 @@ Cube::Cube()
     unsigned char colors[6] = { 32, 16, 224, 112, 64, 96 };
     for (int i = 0; i < 6; i++)
     {
-        faces[i] = Face(colors[i]);
+        faces[i] = Face(colors[i], colors[i + (i % 2) * (-1) + ((i + 1) % 2) * 1]);
     }
 }
 
@@ -22,7 +22,7 @@ Cube::Cube(char* colors)
 {
     for (int i = 0; i < 6; i++)
     {
-        faces[i] = Face(colors[i]);
+        faces[i] = Face(colors[i], colors[i + (i % 2) * (-1) + ((i + 1) % 2) * 1]);
     }
 }
 
@@ -77,7 +77,7 @@ void Cube::scramble(int numMoves, bool print)
 
     if (print) std::cout << "Scrambling sequence:" << moves << '\n';
     int dud = 0;
-    Parser::parse(*this, moves, dud, false);
+    Parser::parse(*this, moves, dud, false, false);
 }
 
 void Cube::draw()
@@ -165,6 +165,11 @@ void Cube::draw()
     
     // just to be safe
     SetConsoleTextAttribute(hConsole, 7);
+}
+
+void Cube::copy(unsigned char dest[6][3][3])
+{
+    for (int i = 0; i < 6; i++) faces[i].copy(dest[i]);
 }
 
 // Moves

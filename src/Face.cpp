@@ -3,20 +3,23 @@
 
 Face::Face()
 {
+    this->opposite = 0;
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
-            grid[i][j] = 'a';
+            grid[i][j] = 0;
 }
 
-Face::Face(unsigned char color)
+Face::Face(unsigned char color, unsigned char opposite)
 {
+    this->opposite = opposite;
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
             grid[i][j] = color;
 }
 
-Face::Face(unsigned char** grid)
+Face::Face(unsigned char** grid, unsigned char opposite)
 {
+    this->opposite = opposite;
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
             this->grid[i][j] = grid[i][j];
@@ -31,6 +34,16 @@ bool Face::isSolved()
         }
     
     return true;
+}
+
+unsigned char Face::getColor()
+{
+    return grid[1][1];
+}
+
+unsigned char Face::getOpposite()
+{
+    return opposite;
 }
 
 void Face::copyRow(int r, unsigned char* dest, bool invert)

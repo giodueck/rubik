@@ -6,19 +6,26 @@ enum Facing { Right, Left, Up, Down, Front, Back };
 class Face
 {
     unsigned char grid[3][3];
+    unsigned char opposite;
 
     public:
         // Default (blank) constructor
         Face();
 
-        // Constructor, color is the symbol to be used
-        Face(unsigned char color);
+        // Constructor, color is the symbol to be used, opposite is the opposite face's color
+        Face(unsigned char color, unsigned char opposite);
 
-        // grid is a matrix of 3x3
-        Face(unsigned char** grid);
+        // grid is a matrix of 3x3, opposite is the opposite face's color
+        Face(unsigned char** grid, unsigned char opposite);
 
         // true if all pieces are the same as the center piece
         bool isSolved();
+
+        // Returns the color of the face
+        unsigned char getColor();
+
+        // Returns the color of the opposite face
+        unsigned char getOpposite();
 
         // Copies out the colors of a row r (0-2) into dest, which is an array of 3 elements.
         // For some moves an inverted copy is needed, set invert accordingly

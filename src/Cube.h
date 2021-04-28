@@ -12,7 +12,7 @@ class Cube
         // Start off solved with default colors
         Cube();
 
-        // Start off solved with custom colors
+        // Start off solved with custom colors, colors has to be at least 6 chars long
         Cube(char* colors);
 
         // Start off with custom arrangement and colors
@@ -28,6 +28,9 @@ class Cube
 
         // Draws the cube sides laid out flat
         void draw();
+
+        // Copy the cube faces to dest
+        void copy(unsigned char dest[6][3][3]);
 
         // Moves
 
