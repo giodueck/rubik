@@ -26,9 +26,9 @@ int main()
         {
             // create and scramble cube
             Cube cube = Cube();
-            // int dbg = 0;
-            // Parser::parse(cube, (std::string)"D U D2 R L2 E2 L2 D' F' R2 R' M2 U2 R M' S' F S2 S D'", dbg, false);
-            cube.scramble(20, true);
+            int dbg = 0;
+            // Parser::parse(cube, (std::string)"M' S2 F D S' E' B D' E' E B2 M2 L' D2 L2 B' F U' S R'", dbg, false);
+            cube.scramble(20, dbg);
 
             if (cline[0] == '0')
             {
