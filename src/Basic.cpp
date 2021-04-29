@@ -868,6 +868,165 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
         std::cout << '\n';
     }
 
+    /* Yellow edges */
+    {
+        bool YEdbg = false;
+        // copy cube and look at the edges.
+        // if the placement isnt right execute Y and look again, but keep aux and aux2 the same
+        // when found check neighboring faces to see how to solve the step
+        // step done
+        cube.copy(faces);
+        // order: right, front, left, back
+        std::vector<unsigned char> centers;
+        std::vector<bool> solved;
+        centers.push_back(faces[Facing::Right][1][1]);
+        centers.push_back(faces[Facing::Front][1][1]);
+        centers.push_back(faces[Facing::Left][1][1]);
+        centers.push_back(faces[Facing::Back][1][1]);
+        int mov;
+        // look for pair of solved edges
+        for (mov = 0; mov < 4; mov++)
+        {
+            solved.clear();
+            solved.push_back(centers[(0 + mov) % 4] == faces[Facing::Right][0][1]);
+            solved.push_back(centers[(1 + mov) % 4] == faces[Facing::Front][0][1]);
+            solved.push_back(centers[(2 + mov) % 4] == faces[Facing::Left][0][1]);
+            solved.push_back(centers[(3 + mov) % 4] == faces[Facing::Back][0][1]);
+
+            if (solved[0] and solved[1] and solved[2] and solved[3])
+            {
+                switch (mov)
+                {
+                // case 0:
+                //     nop
+                //     break;
+                case 1:
+                    execute(cube, "U Y'", YEtotal, YEdbg);
+                    break;
+                case 2:
+                    execute(cube, "U2 Y2", YEtotal, YEdbg);
+                    break;
+                case 3:
+                    execute(cube, "U' Y", YEtotal, YEdbg);
+                    break;
+                }
+                goto END_YE;
+            }
+            if (solved[0] and solved[1])
+            {
+                switch (mov)
+                {
+                case 0:
+                    execute(cube, "Y'", YEtotal, YEdbg);
+                    break;
+                case 1:
+                    execute(cube, "U Y2", YEtotal, YEdbg);
+                    break;
+                case 2:
+                    execute(cube, "U2 Y", YEtotal, YEdbg);
+                    break;
+                case 3:
+                    execute(cube, "U'", YEtotal, YEdbg);
+                    break;
+                }
+                goto LSHAPE;
+            } else if (solved[1] and solved[2])
+            {
+                switch (mov)
+                {
+                case 0:
+                    execute(cube, "Y2", YEtotal, YEdbg);
+                    break;
+                case 1:
+                    execute(cube, "U Y", YEtotal, YEdbg);
+                    break;
+                case 2:
+                    execute(cube, "U2", YEtotal, YEdbg);
+                    break;
+                case 3:
+                    execute(cube, "U' Y'", YEtotal, YEdbg);
+                    break;
+                }
+                goto LSHAPE;
+            } else if (solved[2] and solved[3])
+            {
+                switch (mov)
+                {
+                case 0:
+                    execute(cube, "Y", YEtotal, YEdbg);
+                    break;
+                case 1:
+                    execute(cube, "U", YEtotal, YEdbg);
+                    break;
+                case 2:
+                    execute(cube, "U2 Y'", YEtotal, YEdbg);
+                    break;
+                case 3:
+                    execute(cube, "U' Y2", YEtotal, YEdbg);
+                    break;
+                }
+                goto LSHAPE;
+            } else if (solved[3] and solved[0])
+            {
+                switch (mov)
+                {
+                // case 0:
+                //     nop
+                //     break;
+                case 1:
+                    execute(cube, "U Y'", YEtotal, YEdbg);
+                    break;
+                case 2:
+                    execute(cube, "U2 Y2", YEtotal, YEdbg);
+                    break;
+                case 3:
+                    execute(cube, "U' Y", YEtotal, YEdbg);
+                    break;
+                }
+                goto LSHAPE;
+            } else if (solved[0] and solved[2])
+            {
+                switch (mov)
+                {
+                // case 0:
+                //     // nop
+                //     break;
+                case 1:
+                    execute(cube, "U Y'", YEtotal, YEdbg);
+                    break;
+                }
+                goto LINE;
+            } else if (solved[1] and solved[3])
+            {
+                switch (mov)
+                {
+                case 0:
+                    execute(cube, "Y", YEtotal, YEdbg);
+                    break;
+                case 1:
+                    execute(cube, "U", YEtotal, YEdbg);
+                    break;
+                }
+                goto LINE;
+            }
+        }
+
+        LINE:
+        execute(cube, moveSets[MoveSetNames::YE_O], YEtotal, YEdbg);
+        goto END_YE;
+
+        LSHAPE:
+        execute(cube, moveSets[MoveSetNames::YE_A], YEtotal, YEdbg);
+        goto END_YE;
+    }
+    END_YE:
+    if (printSteps)
+    {
+        std::cout << "Yellow edges:\n";
+        cube.draw();
+        std::cout << '\n';
+    }
+
     /* Count up moves and print stats*/
     {
         std::cout << "\nSolved!\n";
