@@ -1,8 +1,8 @@
 # A Rubik's Cube solver as a console program for windows.
-Version 0.2.4\
+Version 0.2.5\
 Changelog:
 - Beginner algorithm added in the Basic class.
-- Basic: 3rd step (second layer) added.
+- Basic: 4th step (yellow cross) added.
 
 # Several ways to play around
 Pick wether an algorithm should solve the cube or you want to do it manually.

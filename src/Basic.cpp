@@ -714,7 +714,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         if (aux == faces[f][1][1])
                         {
                             c++;
-                            f = Facing::Left;
+                            f = Facing::Left, i = 0, j = -1;
                         }
                         else
                         {
@@ -737,7 +737,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         if (aux == faces[f][1][1])
                         {
                             c++;
-                            f = Facing::Front;
+                            f = Facing::Front, i = 0, j = -1;
                         }
                         else
                         {
@@ -760,7 +760,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         if (aux == faces[f][1][1])
                         {
                             c++;
-                            f = Facing::Back;
+                            f = Facing::Back, i = 0, j = -1;
                         }
                         else
                         {
@@ -800,6 +800,70 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
     if (printSteps)
     {
         std::cout << "Second layer:\n";
+        cube.draw();
+        std::cout << '\n';
+    }
+
+    /* Yellow cross */
+    {
+        // check edges for shapes:
+        // if dot, 'r' or line, orient cube and do moveset
+        // if cross step is done
+
+        std::vector<bool> c;
+        cube.copy(faces);
+        yellow = faces[Facing::Up][1][1];
+        c.push_back(faces[Facing::Up][0][1] == yellow);
+        c.push_back(faces[Facing::Up][1][0] == yellow);
+        c.push_back(faces[Facing::Up][1][2] == yellow);
+        c.push_back(faces[Facing::Up][2][1] == yellow);
+        
+        switch (c[0] + c[1] + c[2] + c[3])
+        {
+        case 0:
+            execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+            execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+            execute(cube, "Y", YCRtotal);
+            execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+            break;
+        case 2:
+            if (c[0] and c[3]) // line vertical
+            {
+                execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+            } else if (c[1] and c[2])   // line horizontal
+            {
+                execute(cube, "Y", YCRtotal);
+                execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+            } else  // 'r'
+            {
+                if (c[0] and c[1])
+                {
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                } else if (c[0] and c[2])
+                {
+                    execute(cube,"Y'", YCRtotal);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                } else if (c[2] and c[3])
+                {
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                    execute(cube,"Y'", YCRtotal);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                } else if (c[1] and c[3])
+                {
+                    execute(cube,"Y", YCRtotal);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                }
+            }
+            break;
+        }
+    }
+    END_YCR:
+    if (printSteps)
+    {
+        std::cout << "Yellow cross:\n";
         cube.draw();
         std::cout << '\n';
     }
