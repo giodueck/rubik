@@ -27,7 +27,7 @@ void reset(int &f, int &i, int &j, int &c)
     j = -1;
 }
 
-int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
+int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs, bool dbg)
 {
     // Note: the naming of the steps stems from the tendency to orient the cube
     //  white down in humans; the program takes whatever color the center of
@@ -63,20 +63,20 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             aux = faces[Facing::Back][0][1];
                             if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "B2", WCRtotal);
+                                execute(cube, "B2", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Right][1][1])
                             {
-                                execute(cube, "U R2", WCRtotal);
+                                execute(cube, "U R2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "U2 F2", WCRtotal);
+                                execute(cube, "U2 F2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else
                             {
-                                execute(cube, "U' L2", WCRtotal);
+                                execute(cube, "U' L2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
@@ -85,12 +85,12 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             aux = faces[Facing::Front][2][1];
                             if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "F D2 F' D2", WCRtotal);
+                                execute(cube, "F D2 F' D2", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Right][1][1])
                             {
-                                execute(cube, "F D' F' D", WCRtotal);
+                                execute(cube, "F D' F' D", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Front][1][1])
                             {
@@ -99,7 +99,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                                 continue;
                             } else // left
                             {
-                                execute(cube, "F D F' D'", WCRtotal);
+                                execute(cube, "F D F' D'", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
@@ -108,35 +108,35 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             aux = faces[Facing::Up][1][2];
                             if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "R B' R'", WCRtotal);
+                                execute(cube, "R B' R'", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Right][1][1])
                             {
-                                execute(cube, "B U' B' R", WCRtotal);
+                                execute(cube, "B U' B' R", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "R' F R", WCRtotal);
+                                execute(cube, "R' F R", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else // left
                             {
-                                execute(cube, "U F' L F", WCRtotal);
+                                execute(cube, "U F' L F", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
                         case Facing::Left:
                             // rotate cube as the next cases are permutations of case Facing::Right
-                            execute(cube, "Y2", WCRtotal);
+                            execute(cube, "Y2", WCRtotal, dbg);
                             // restart the lookup because the cube changed
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         case Facing::Front:
-                            execute(cube, "Y'", WCRtotal);
+                            execute(cube, "Y'", WCRtotal, dbg);
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         case Facing::Back:
-                            execute(cube, "Y", WCRtotal);
+                            execute(cube, "Y", WCRtotal, dbg);
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         }
@@ -150,20 +150,20 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             aux = faces[Facing::Left][0][1];
                             if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "U B2", WCRtotal);
+                                execute(cube, "U B2", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Right][1][1])
                             {
-                                execute(cube, "U2 R2", WCRtotal);
+                                execute(cube, "U2 R2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "U' F2", WCRtotal);
+                                execute(cube, "U' F2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else
                             {
-                                execute(cube, "L2", WCRtotal);
+                                execute(cube, "L2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
@@ -172,16 +172,16 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             aux = faces[Facing::Left][2][1];
                             if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "L D L' D'", WCRtotal);
+                                execute(cube, "L D L' D'", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Right][1][1])
                             {
-                                execute(cube, "L D2 L' D2", WCRtotal);
+                                execute(cube, "L D2 L' D2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "L D' L' D", WCRtotal);
+                                execute(cube, "L D' L' D", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else // left
                             {
@@ -195,35 +195,35 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             aux = faces[Facing::Front][1][2];
                             if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "D2 F D2", WCRtotal);
+                                execute(cube, "D2 F D2", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Right][1][1])
                             {
-                                execute(cube, "D' F D", WCRtotal);
+                                execute(cube, "D' F D", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "F", WCRtotal);
+                                execute(cube, "F", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else // left
                             {
-                                execute(cube, "D F D'", WCRtotal);
+                                execute(cube, "D F D'", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
                         case Facing::Left:
                             // rotate cube as the next cases are permutations of case Facing::Right
-                            execute(cube, "Y2", WCRtotal);
+                            execute(cube, "Y2", WCRtotal, dbg);
                             // restart the lookup because the cube changed
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         case Facing::Front:
-                            execute(cube, "Y'", WCRtotal);
+                            execute(cube, "Y'", WCRtotal, dbg);
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         case Facing::Back:
-                            execute(cube, "Y", WCRtotal);
+                            execute(cube, "Y", WCRtotal, dbg);
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         }
@@ -237,20 +237,20 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             aux = faces[Facing::Right][0][1];
                             if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "U' B2", WCRtotal);
+                                execute(cube, "U' B2", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Right][1][1])
                             {
-                                execute(cube, "R2", WCRtotal);
+                                execute(cube, "R2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "U F2", WCRtotal);
+                                execute(cube, "U F2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else
                             {
-                                execute(cube, "U2 L2", WCRtotal);
+                                execute(cube, "U2 L2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
@@ -259,7 +259,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             aux = faces[Facing::Right][2][1];
                             if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "R D' R' D", WCRtotal);
+                                execute(cube, "R D' R' D", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Right][1][1])
@@ -269,11 +269,11 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                                 continue;
                             } else if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "R D R' D'", WCRtotal);
+                                execute(cube, "R D R' D'", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else // left
                             {
-                                execute(cube, "R D2 R' D2", WCRtotal);
+                                execute(cube, "R D2 R' D2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
@@ -282,35 +282,35 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             aux = faces[Facing::Back][1][0];
                             if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "B'", WCRtotal);
+                                execute(cube, "B'", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Right][1][1])
                             {
-                                execute(cube, "D B' D'", WCRtotal);
+                                execute(cube, "D B' D'", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "D2 B' D2", WCRtotal);
+                                execute(cube, "D2 B' D2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else // left
                             {
-                                execute(cube, "D' B' D", WCRtotal);
+                                execute(cube, "D' B' D", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
                         case Facing::Left:
                             // rotate cube as the next cases are permutations of case Facing::Right
-                            execute(cube, "Y2", WCRtotal);
+                            execute(cube, "Y2", WCRtotal, dbg);
                             // restart the lookup because the cube changed
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         case Facing::Front:
-                            execute(cube, "Y'", WCRtotal);
+                            execute(cube, "Y'", WCRtotal, dbg);
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         case Facing::Back:
-                            execute(cube, "Y", WCRtotal);
+                            execute(cube, "Y", WCRtotal, dbg);
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         }
@@ -324,20 +324,20 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             aux = faces[Facing::Front][0][1];
                             if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "U2 B2", WCRtotal);
+                                execute(cube, "U2 B2", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Right][1][1])
                             {
-                                execute(cube, "U' R2", WCRtotal);
+                                execute(cube, "U' R2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "F2", WCRtotal);
+                                execute(cube, "F2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else
                             {
-                                execute(cube, "U L2", WCRtotal);
+                                execute(cube, "U L2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
@@ -353,16 +353,16 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                                 continue;
                             } else if (aux == faces[Facing::Right][1][1])
                             {
-                                execute(cube, "B D B' D'", WCRtotal);
+                                execute(cube, "B D B' D'", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "B D2 B' D2", WCRtotal);
+                                execute(cube, "B D2 B' D2", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else // left
                             {
-                                execute(cube, "B D' B' D", WCRtotal);
+                                execute(cube, "B D' B' D", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
@@ -371,35 +371,35 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             aux = faces[Facing::Down][1][2];
                             if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "R' B'", WCRtotal);
+                                execute(cube, "R' B'", WCRtotal, dbg);
                                 // restart the lookup because the cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Right][1][1])
                             {
-                                execute(cube, "R' D' B' D", WCRtotal);
+                                execute(cube, "R' D' B' D", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "R F", WCRtotal);
+                                execute(cube, "R F", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             } else // left
                             {
-                                execute(cube, "R D' F D", WCRtotal);
+                                execute(cube, "R D' F D", WCRtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
                         case Facing::Left:
                             // rotate cube as the next cases are permutations of case Facing::Right
-                            execute(cube, "Y2", WCRtotal);
+                            execute(cube, "Y2", WCRtotal, dbg);
                             // restart the lookup because the cube changed
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         case Facing::Front:
-                            execute(cube, "Y'", WCRtotal);
+                            execute(cube, "Y'", WCRtotal, dbg);
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         case Facing::Back:
-                            execute(cube, "Y", WCRtotal);
+                            execute(cube, "Y", WCRtotal, dbg);
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         }
@@ -435,13 +435,13 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             // rotate the appropriate face to front
                             if (!i and !j)
                             {
-                                execute(cube, "Y2", WCOtotal);
+                                execute(cube, "Y2", WCOtotal, dbg);
                             } else if (!i and j == 2)
                             {
-                                execute(cube, "Y", WCOtotal);
+                                execute(cube, "Y", WCOtotal, dbg);
                             } else if (i == 2 and !j)
                             {
-                                execute(cube, "Y'", WCOtotal);
+                                execute(cube, "Y'", WCOtotal, dbg);
                             }
                             cube.copy(faces);
 
@@ -450,16 +450,16 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                             // move corner to the right position
                             if (aux == faces[Facing::Front][1][1])
                             {
-                                execute(cube, "U Y'", WCOtotal);
+                                execute(cube, "U Y'", WCOtotal, dbg);
                             } else if (aux == faces[Facing::Left][1][1])
                             {
-                                execute(cube, "U2 Y2", WCOtotal);
+                                execute(cube, "U2 Y2", WCOtotal, dbg);
                             } else if (aux == faces[Facing::Back][1][1])
                             {
-                                execute(cube, "U' Y", WCOtotal);
+                                execute(cube, "U' Y", WCOtotal, dbg);
                             }
                             // execute moves to solve the corner
-                            execute(cube, moveSets[WCO_U], WCOtotal);
+                            execute(cube, moveSets[WCO_U], WCOtotal, dbg);
 
                             // restart lookup because cube changed
                             cube.copy(faces), reset(f, i, j, c);
@@ -471,7 +471,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                                 if (faces[Facing::Front][2][0] == faces[Facing::Front][1][1]) c++;
                                 else
                                 {
-                                    execute(cube, "L' U' L", WCOtotal);
+                                    execute(cube, "L' U' L", WCOtotal, dbg);
                                     // restart lookup because cube changed
                                     cube.copy(faces), reset(f, i, j, c);
                                 }
@@ -480,7 +480,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                                 if (faces[Facing::Front][2][2] == faces[Facing::Front][1][1]) c++;
                                 else
                                 {
-                                    execute(cube, "R U' R'", WCOtotal);
+                                    execute(cube, "R U' R'", WCOtotal, dbg);
                                     cube.copy(faces), reset(f, i, j, c);
                                 }
                             } else if (i == 2 and !j)
@@ -488,7 +488,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                                 if (faces[Facing::Back][2][2] == faces[Facing::Back][1][1]) c++;
                                 else
                                 {
-                                    execute(cube, "L U L'", WCOtotal);
+                                    execute(cube, "L U L'", WCOtotal, dbg);
                                     cube.copy(faces), reset(f, i, j, c);
                                 }
                             } else if (i == 2 and j == 2)
@@ -501,7 +501,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                                 }
                                 else
                                 {
-                                    execute(cube, "R' U R", WCOtotal);
+                                    execute(cube, "R' U R", WCOtotal, dbg);
                                     cube.copy(faces), reset(f, i, j, c);
                                 }
                             }
@@ -514,23 +514,23 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                                 aux = faces[Facing::Front][0][2];
                                 if (aux == faces[Facing::Front][1][1])
                                 {
-                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal);
+                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal, dbg);
                                     // restart lookup because cube changed
                                     cube.copy(faces), reset(f, i, j, c);
                                 } else if (aux == faces[Facing::Left][1][1])
                                 {
-                                    execute(cube, "U Y'", WCOtotal);
-                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal);
+                                    execute(cube, "U Y'", WCOtotal, dbg);
+                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal, dbg);
                                     cube.copy(faces), reset(f, i, j, c);
                                 } else if (aux == faces[Facing::Back][1][1])
                                 {
-                                    execute(cube, "U2 Y2", WCOtotal);
-                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal);
+                                    execute(cube, "U2 Y2", WCOtotal, dbg);
+                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal, dbg);
                                     cube.copy(faces), reset(f, i, j, c);
                                 } else // right
                                 {
-                                    execute(cube, "U' Y", WCOtotal);
-                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal);
+                                    execute(cube, "U' Y", WCOtotal, dbg);
+                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal, dbg);
                                     cube.copy(faces), reset(f, i, j, c);
                                 }
                             } else if (!i and j == 2)
@@ -539,50 +539,50 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                                 aux = faces[Facing::Back][0][0];
                                 if (aux == faces[Facing::Front][1][1])
                                 {
-                                    execute(cube, "U2 Y'", WCOtotal);
-                                    execute(cube, moveSets[MoveSetNames::WCO_F], WCOtotal);
+                                    execute(cube, "U2 Y'", WCOtotal, dbg);
+                                    execute(cube, moveSets[MoveSetNames::WCO_F], WCOtotal, dbg);
                                     // restart lookup because cube changed
                                     cube.copy(faces), reset(f, i, j, c);
                                 } else if (aux == faces[Facing::Left][1][1])
                                 {
-                                    execute(cube, "U' Y2", WCOtotal);
-                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal);
+                                    execute(cube, "U' Y2", WCOtotal, dbg);
+                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal, dbg);
                                     cube.copy(faces), reset(f, i, j, c);
                                 } else if (aux == faces[Facing::Back][1][1])
                                 {
-                                    execute(cube, "Y", WCOtotal);
-                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal);
+                                    execute(cube, "Y", WCOtotal, dbg);
+                                    execute(cube, moveSets[MoveSetNames::WCO_R], WCOtotal, dbg);
                                     cube.copy(faces), reset(f, i, j, c);
                                 } else // right
                                 {
-                                    execute(cube, "U", WCOtotal);
-                                    execute(cube, moveSets[MoveSetNames::WCO_F], WCOtotal);
+                                    execute(cube, "U", WCOtotal, dbg);
+                                    execute(cube, moveSets[MoveSetNames::WCO_F], WCOtotal, dbg);
                                     cube.copy(faces), reset(f, i, j, c);
                                 }
                             } else if (i == 2 and !j)
                             {
                                 // the next two cases require one set of moves to take the corner out
                                 // of the spot it is in before solving
-                                execute(cube, "R U R' Y'", WCOtotal);
+                                execute(cube, "R U R' Y'", WCOtotal, dbg);
                                 // restart lookup because cube changed
                                 cube.copy(faces), reset(f, i, j, c);
                             } else if (i == 2 and j == 2)
                             {
-                                execute(cube, "R' U' R Y", WCOtotal);
+                                execute(cube, "R' U' R Y", WCOtotal, dbg);
                                 cube.copy(faces), reset(f, i, j, c);
                             }
                             break;
                         case Facing::Left:
                             // the next cases are permutations of case Facing::Right
-                            execute(cube, "Y2", WCOtotal);
+                            execute(cube, "Y2", WCOtotal, dbg);
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         case Facing::Front:
-                            execute(cube, "Y'", WCOtotal);
+                            execute(cube, "Y'", WCOtotal, dbg);
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         case Facing::Back:
-                            execute(cube, "Y", WCOtotal);
+                            execute(cube, "Y", WCOtotal, dbg);
                             cube.copy(faces), reset(f, i, j, c);
                             break;
                         }
@@ -627,48 +627,48 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         if ((aux2 = faces[Facing::Back][0][1]) == yellow) continue;
                         if (aux2 == faces[Facing::Back][1][1])
                         {
-                            execute(cube, "Y2", SLtotal, SLdbg);
+                            execute(cube, "Y2", SLtotal, SLdbg or dbg);
                         } else if (aux2 == faces[Facing::Right][1][1])
                         {
-                            execute(cube, "U Y", SLtotal, SLdbg);
+                            execute(cube, "U Y", SLtotal, SLdbg or dbg);
                         } else if (aux2 == faces[Facing::Front][1][1])
                         {
-                            execute(cube, "U2", SLtotal, SLdbg);
+                            execute(cube, "U2", SLtotal, SLdbg or dbg);
                         } else  // left
                         {
-                            execute(cube, "U' Y'", SLtotal, SLdbg);
+                            execute(cube, "U' Y'", SLtotal, SLdbg or dbg);
                         }
                     } else if (!j)      // left
                     {
                         if ((aux2 = faces[Facing::Left][0][1]) == yellow) continue;
                         if (aux2 == faces[Facing::Back][1][1])
                         {
-                            execute(cube, "Y2 U", SLtotal, SLdbg);
+                            execute(cube, "Y2 U", SLtotal, SLdbg or dbg);
                         } else if (aux2 == faces[Facing::Right][1][1])
                         {
-                            execute(cube, "U2 Y", SLtotal, SLdbg);
+                            execute(cube, "U2 Y", SLtotal, SLdbg or dbg);
                         } else if (aux2 == faces[Facing::Front][1][1])
                         {
-                            execute(cube, "U'", SLtotal, SLdbg);
+                            execute(cube, "U'", SLtotal, SLdbg or dbg);
                         } else  // left
                         {
-                            execute(cube, "Y'", SLtotal, SLdbg);
+                            execute(cube, "Y'", SLtotal, SLdbg or dbg);
                         }
                     } else if (j == 2)  //right
                     {
                         if ((aux2 = faces[Facing::Right][0][1]) == yellow) continue;
                         if (aux2 == faces[Facing::Back][1][1])
                         {
-                            execute(cube, "Y2 U'", SLtotal, SLdbg);
+                            execute(cube, "Y2 U'", SLtotal, SLdbg or dbg);
                         } else if (aux2 == faces[Facing::Right][1][1])
                         {
-                            execute(cube, "Y", SLtotal, SLdbg);
+                            execute(cube, "Y", SLtotal, SLdbg or dbg);
                         } else if (aux2 == faces[Facing::Front][1][1])
                         {
-                            execute(cube, "U", SLtotal, SLdbg);
+                            execute(cube, "U", SLtotal, SLdbg or dbg);
                         } else  // left
                         {
-                            execute(cube, "Y' U2", SLtotal, SLdbg);
+                            execute(cube, "Y' U2", SLtotal, SLdbg or dbg);
                         }
                     } else if (i == 2)  //front
                     {
@@ -679,21 +679,21 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         }
                         if (aux2 == faces[Facing::Back][1][1])
                         {
-                            execute(cube, "Y2 U2", SLtotal, SLdbg);
+                            execute(cube, "Y2 U2", SLtotal, SLdbg or dbg);
                         } else if (aux2 == faces[Facing::Right][1][1])
                         {
-                            execute(cube, "Y U'", SLtotal, SLdbg);
+                            execute(cube, "Y U'", SLtotal, SLdbg or dbg);
                         } else  // left
                         {
-                            execute(cube, "Y' U", SLtotal, SLdbg);
+                            execute(cube, "Y' U", SLtotal, SLdbg or dbg);
                         }
                     }
                     cube.copy(faces);
 
                     // solve edge piece
                     if (aux == faces[Facing::Right][1][1])
-                        execute(cube, moveSets[MoveSetNames::SL_R], SLtotal, SLdbg);
-                    else execute(cube, moveSets[MoveSetNames::SL_L], SLtotal, SLdbg);
+                        execute(cube, moveSets[MoveSetNames::SL_R], SLtotal, SLdbg or dbg);
+                    else execute(cube, moveSets[MoveSetNames::SL_L], SLtotal, SLdbg or dbg);
                     // restart lookup because cube changed, but set f to Up
                     f = Facing::Up, reset(j, i, j, c), cube.copy(faces);
                     break;
@@ -706,7 +706,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         if (aux == faces[f][1][1]) c++;
                         else
                         {
-                            execute(cube, "Y L' U' L U F U F'", SLtotal, SLdbg);
+                            execute(cube, "Y L' U' L U F U F'", SLtotal, SLdbg or dbg);
                             f = Facing::Up, reset(j, i, j, c), cube.copy(faces);
                         }
                     } else if (j == 2)  // right
@@ -718,7 +718,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         }
                         else
                         {
-                            execute(cube, "Y2 L' U' L U F U F'", SLtotal, SLdbg);
+                            execute(cube, "Y2 L' U' L U F U F'", SLtotal, SLdbg or dbg);
                             f = Facing::Up, reset(j, i, j, c), cube.copy(faces);
                         }
                     }
@@ -729,7 +729,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         if (aux == faces[f][1][1]) c++;
                         else
                         {
-                            execute(cube, "Y' L' U' L U F U F'", SLtotal, SLdbg);
+                            execute(cube, "Y' L' U' L U F U F'", SLtotal, SLdbg or dbg);
                             f = Facing::Up, reset(j, i, j, c), cube.copy(faces);
                         }
                     } else if (j == 2)  // right
@@ -741,7 +741,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         }
                         else
                         {
-                            execute(cube, "L' U' L U F U F'", SLtotal, SLdbg);
+                            execute(cube, "L' U' L U F U F'", SLtotal, SLdbg or dbg);
                             f = Facing::Up, reset(j, i, j, c), cube.copy(faces);
                         }
                     }
@@ -752,7 +752,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         if (aux == faces[f][1][1]) c++;
                         else
                         {
-                            execute(cube, "L' U' L U F U F'", SLtotal, SLdbg);
+                            execute(cube, "L' U' L U F U F'", SLtotal, SLdbg or dbg);
                             f = Facing::Up, reset(j, i, j, c), cube.copy(faces);
                         }
                     } else if (j == 2)  // right
@@ -764,7 +764,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         }
                         else
                         {
-                            execute(cube, "Y L' U' L U F U F'", SLtotal, SLdbg);
+                            execute(cube, "Y L' U' L U F U F'", SLtotal, SLdbg or dbg);
                             f = Facing::Up, reset(j, i, j, c), cube.copy(faces);
                         }
                     }
@@ -775,7 +775,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         if (aux == faces[f][1][1]) c++;
                         else
                         {
-                            execute(cube, "Y2 L' U' L U F U F'", SLtotal, SLdbg);
+                            execute(cube, "Y2 L' U' L U F U F'", SLtotal, SLdbg or dbg);
                             f = Facing::Up, reset(j, i, j, c), cube.copy(faces);
                         }
                     } else if (j == 2)  // right
@@ -787,7 +787,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         }
                         else
                         {
-                            execute(cube, "Y L' U' L U F U F'", SLtotal, SLdbg);
+                            execute(cube, "Y L' U' L U F U F'", SLtotal, SLdbg or dbg);
                             f = Facing::Up, reset(j, i, j, c), cube.copy(faces);
                         }
                     }
@@ -821,40 +821,40 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
         switch (c[0] + c[1] + c[2] + c[3])
         {
         case 0:
-            execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
-            execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
-            execute(cube, "Y", YCRtotal);
-            execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+            execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
+            execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
+            execute(cube, "Y", YCRtotal, dbg);
+            execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
             break;
         case 2:
             if (c[0] and c[3]) // line vertical
             {
-                execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
             } else if (c[1] and c[2])   // line horizontal
             {
-                execute(cube, "Y", YCRtotal);
-                execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                execute(cube, "Y", YCRtotal, dbg);
+                execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
             } else  // 'r'
             {
                 if (c[0] and c[1])
                 {
-                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
-                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
                 } else if (c[0] and c[2])
                 {
-                    execute(cube,"Y'", YCRtotal);
-                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
-                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                    execute(cube,"Y'", YCRtotal, dbg);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
                 } else if (c[2] and c[3])
                 {
-                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
-                    execute(cube,"Y'", YCRtotal);
-                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
+                    execute(cube,"Y'", YCRtotal, dbg);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
                 } else if (c[1] and c[3])
                 {
-                    execute(cube,"Y", YCRtotal);
-                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
-                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal);
+                    execute(cube,"Y", YCRtotal, dbg);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
+                    execute(cube, moveSets[MoveSetNames::YCR], YCRtotal, dbg);
                 }
             }
             break;
@@ -901,13 +901,13 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                 //     nop
                 //     break;
                 case 1:
-                    execute(cube, "U Y'", YEtotal, YEdbg);
+                    execute(cube, "U Y'", YEtotal, YEdbg or dbg);
                     break;
                 case 2:
-                    execute(cube, "U2 Y2", YEtotal, YEdbg);
+                    execute(cube, "U2 Y2", YEtotal, YEdbg or dbg);
                     break;
                 case 3:
-                    execute(cube, "U' Y", YEtotal, YEdbg);
+                    execute(cube, "U' Y", YEtotal, YEdbg or dbg);
                     break;
                 }
                 goto END_YE;
@@ -917,16 +917,16 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                 switch (mov)
                 {
                 case 0:
-                    execute(cube, "Y'", YEtotal, YEdbg);
+                    execute(cube, "Y'", YEtotal, YEdbg or dbg);
                     break;
                 case 1:
-                    execute(cube, "U Y2", YEtotal, YEdbg);
+                    execute(cube, "U Y2", YEtotal, YEdbg or dbg);
                     break;
                 case 2:
-                    execute(cube, "U2 Y", YEtotal, YEdbg);
+                    execute(cube, "U2 Y", YEtotal, YEdbg or dbg);
                     break;
                 case 3:
-                    execute(cube, "U'", YEtotal, YEdbg);
+                    execute(cube, "U'", YEtotal, YEdbg or dbg);
                     break;
                 }
                 goto LSHAPE;
@@ -935,16 +935,16 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                 switch (mov)
                 {
                 case 0:
-                    execute(cube, "Y2", YEtotal, YEdbg);
+                    execute(cube, "Y2", YEtotal, YEdbg or dbg);
                     break;
                 case 1:
-                    execute(cube, "U Y", YEtotal, YEdbg);
+                    execute(cube, "U Y", YEtotal, YEdbg or dbg);
                     break;
                 case 2:
-                    execute(cube, "U2", YEtotal, YEdbg);
+                    execute(cube, "U2", YEtotal, YEdbg or dbg);
                     break;
                 case 3:
-                    execute(cube, "U' Y'", YEtotal, YEdbg);
+                    execute(cube, "U' Y'", YEtotal, YEdbg or dbg);
                     break;
                 }
                 goto LSHAPE;
@@ -953,16 +953,16 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                 switch (mov)
                 {
                 case 0:
-                    execute(cube, "Y", YEtotal, YEdbg);
+                    execute(cube, "Y", YEtotal, YEdbg or dbg);
                     break;
                 case 1:
-                    execute(cube, "U", YEtotal, YEdbg);
+                    execute(cube, "U", YEtotal, YEdbg or dbg);
                     break;
                 case 2:
-                    execute(cube, "U2 Y'", YEtotal, YEdbg);
+                    execute(cube, "U2 Y'", YEtotal, YEdbg or dbg);
                     break;
                 case 3:
-                    execute(cube, "U' Y2", YEtotal, YEdbg);
+                    execute(cube, "U' Y2", YEtotal, YEdbg or dbg);
                     break;
                 }
                 goto LSHAPE;
@@ -974,13 +974,13 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                 //     nop
                 //     break;
                 case 1:
-                    execute(cube, "U Y'", YEtotal, YEdbg);
+                    execute(cube, "U Y'", YEtotal, YEdbg or dbg);
                     break;
                 case 2:
-                    execute(cube, "U2 Y2", YEtotal, YEdbg);
+                    execute(cube, "U2 Y2", YEtotal, YEdbg or dbg);
                     break;
                 case 3:
-                    execute(cube, "U' Y", YEtotal, YEdbg);
+                    execute(cube, "U' Y", YEtotal, YEdbg or dbg);
                     break;
                 }
                 goto LSHAPE;
@@ -992,7 +992,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                 //     // nop
                 //     break;
                 case 1:
-                    execute(cube, "U Y'", YEtotal, YEdbg);
+                    execute(cube, "U Y'", YEtotal, YEdbg or dbg);
                     break;
                 }
                 goto LINE;
@@ -1001,10 +1001,10 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                 switch (mov)
                 {
                 case 0:
-                    execute(cube, "Y", YEtotal, YEdbg);
+                    execute(cube, "Y", YEtotal, YEdbg or dbg);
                     break;
                 case 1:
-                    execute(cube, "U", YEtotal, YEdbg);
+                    execute(cube, "U", YEtotal, YEdbg or dbg);
                     break;
                 }
                 goto LINE;
@@ -1012,11 +1012,11 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
         }
 
         LINE:
-        execute(cube, moveSets[MoveSetNames::YE_O], YEtotal, YEdbg);
+        execute(cube, moveSets[MoveSetNames::YE_O], YEtotal, YEdbg or dbg);
         goto END_YE;
 
         LSHAPE:
-        execute(cube, moveSets[MoveSetNames::YE_A], YEtotal, YEdbg);
+        execute(cube, moveSets[MoveSetNames::YE_A], YEtotal, YEdbg or dbg);
         goto END_YE;
     }
     END_YE:
@@ -1065,18 +1065,18 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
                         goto END_YCO;
                     } else
                     {
-                        execute(cube, moveSets[MoveSetNames::YCO], YCOtotal);
+                        execute(cube, moveSets[MoveSetNames::YCO], YCOtotal, dbg);
                         cube.copy(faces);
                     }
                 // if not rotate the cube
                 } else
                 {
-                    execute(cube, "Y", YCOtotal);
+                    execute(cube, "Y", YCOtotal, dbg);
                     cube.copy(faces);
                 }
             }
             // if no correct corners were found execute the moves once and restart
-            execute(cube, moveSets[MoveSetNames::YCO], YCOtotal);
+            execute(cube, moveSets[MoveSetNames::YCO], YCOtotal, dbg);
             cube.copy(faces);
         }
 
@@ -1101,29 +1101,29 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
         {
             if (faces[Facing::Up][2][2] != yellow)
             {
-                execute(cube, moveSets[MoveSetNames::YCOO], YCOOtotal);
+                execute(cube, moveSets[MoveSetNames::YCOO], YCOOtotal, dbg);
                 i++;
             } else if (faces[Facing::Up][0][2] != yellow)
             {
                 if (i % 3 != 0)
                 {
-                    execute(cube, "U", YCOOtotal);
+                    execute(cube, "U", YCOOtotal, dbg);
                     j += 1;
-                } else execute(cube, "Y", YCOOtotal);
+                } else execute(cube, "Y", YCOOtotal, dbg);
             } else if (faces[Facing::Up][0][0] != yellow)
             {
                 if (i % 3 != 0)
                 {
-                    execute(cube, "U2", YCOOtotal);
+                    execute(cube, "U2", YCOOtotal, dbg);
                     j += 2;
-                } else execute(cube, "Y2", YCOOtotal);
-            } else if (faces[Facing::Up][0][2] != yellow)
+                } else execute(cube, "Y2", YCOOtotal, dbg);
+            } else if (faces[Facing::Up][2][0] != yellow)
             {
                 if (i % 3 != 0)
                 {
-                    execute(cube, "U'", YCOOtotal);
+                    execute(cube, "U'", YCOOtotal, dbg);
                     j += 3;
-                } else execute(cube, "Y'", YCOOtotal);
+                } else execute(cube, "Y'", YCOOtotal, dbg);
             } else goto REPAIR_UP;
             cube.copy(faces);
         }
@@ -1134,13 +1134,13 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
         case 0:
             break;
         case 1:
-            execute(cube, "U'", YCOOtotal);
+            execute(cube, "U'", YCOOtotal, dbg);
             break;
         case 2:
-            execute(cube, "U2", YCOOtotal);
+            execute(cube, "U2", YCOOtotal, dbg);
             break;
         case 3:
-            execute(cube, "U", YCOOtotal);
+            execute(cube, "U", YCOOtotal, dbg);
             break;
         }
     }
@@ -1181,7 +1181,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
             std::cout << '\t' << YEtotal << " - Yellow edges\n";
             std::cout << '\t' << YCOtotal << " - Yellow corners\n";
             std::cout << '\t' << YCOOtotal << " - Yellow corner orientations\n";
-            std::cout << '\t' << "_________________________________";
+            std::cout << '\t' << "_________________________________\n";
             std::cout << '\t' << (total = WCRtotal + WCOtotal + SLtotal + YCRtotal + YEtotal + YCOtotal + YCOOtotal) << " - Total moves\n\n";
         }
         return total;

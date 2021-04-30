@@ -1,5 +1,5 @@
 /* Rubik's Cube solver by Giovanni Dueck
-   Version 2.0 'Basic'
+   Version 2.0.1 'Basic'
    27/04/2021
 */
 
@@ -27,7 +27,7 @@ int main()
             // create and scramble cube
             Cube cube = Cube();
             int dbg = 0;
-            // Parser::parse(cube, (std::string)"L L2 M2 D M M2 E2 D' R2 R2 R U2 U2 D2 U2 F E U U' U2", dbg, false);
+            // Parser::parse(cube, (std::string)"M S2 F B' E D U2 S M2 F2 M' B2 R' R2 E D' M U2 L2 E'", dbg, false);
             cube.scramble(20, dbg);
 
             if (cline[0] == '0')
@@ -64,7 +64,7 @@ int main()
                 std::cout << "Start:\n";
                 cube.draw();
                 std::cout << '\n';
-                solver.solve(cube, stats, steps);
+                solver.solve(cube, stats, steps, NULL, dbg);
                 goto END;
             }
         }
