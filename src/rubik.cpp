@@ -1,5 +1,5 @@
 /* Rubik's Cube solver by Giovanni Dueck
-   Version 0.2.x 'Basic' WIP
+   Version 2.0 'Basic'
    27/04/2021
 */
 

@@ -37,7 +37,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
     // Variables
     unsigned char faces[6][3][3];
     unsigned char /* green, blue,*/ yellow /*, white, red, orange*/;
-    unsigned char aux, aux2;
+    unsigned char aux, aux2, aux3;
     int total = 0, WCRtotal = 0, WCOtotal = 0, SLtotal = 0, YCRtotal = 0, YEtotal = 0, YCOtotal = 0, YCOOtotal = 0;
 
     /* White cross */
@@ -1027,11 +1027,139 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs)
         std::cout << '\n';
     }
 
+    /* Yellow corner placement */
+    {
+        // loop through up corners to see if they aare in the right place
+        // if none, do moveset to get one
+        // if only one, do moveset to see if step done
+        // if all, step done
+        cube.copy(faces);
+        unsigned char front, right, left;
+        yellow = faces[Facing::Up][1][1];
+        // to get out of the while use goto
+        while (true)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                // these are here for readability
+                front = faces[Facing::Front][1][1];
+                right = faces[Facing::Right][1][1];
+                left = faces[Facing::Left][1][1];
+                aux = faces[Facing::Up][2][2];
+                aux2 = faces[Facing::Front][0][2];
+                aux3 = faces[Facing::Right][0][0];
+
+                // check if the corner has the right colors
+                if ((aux == yellow or aux == front or aux == right) and 
+                    (aux2 == yellow or aux2 == front or aux2 == right) and 
+                    (aux3 == yellow or aux3 == front or aux3 == right))
+                {
+                    // check if done
+                    aux = faces[Facing::Up][2][0];
+                    aux2 = faces[Facing::Front][0][0];
+                    aux3 = faces[Facing::Left][0][2];
+                    if ((aux == yellow or aux == front or aux == left) and 
+                        (aux2 == yellow or aux2 == front or aux2 == left) and 
+                        (aux3 == yellow or aux3 == front or aux3 == left))
+                    {
+                        goto END_YCO;
+                    } else
+                    {
+                        execute(cube, moveSets[MoveSetNames::YCO], YCOtotal);
+                        cube.copy(faces);
+                    }
+                // if not rotate the cube
+                } else
+                {
+                    execute(cube, "Y", YCOtotal);
+                    cube.copy(faces);
+                }
+            }
+            // if no correct corners were found execute the moves once and restart
+            execute(cube, moveSets[MoveSetNames::YCO], YCOtotal);
+            cube.copy(faces);
+        }
+
+    }
+    END_YCO:
+    if (printSteps)
+    {
+        std::cout << "Yellow corners:\n";
+        cube.draw();
+        std::cout << '\n';
+    }
+
+    /* Yellow corner orientation */
+    {
+        // check which corners arent solved. rotate the cube to the first one
+        // do corner orientation moveset
+        // check if solved, if not do again, if yes, move up to the next unsolved corner or finish
+        cube.copy(faces);
+        yellow = faces[Facing::Up][1][1];
+        int i = 0, j = 0;
+        while (true)
+        {
+            if (faces[Facing::Up][2][2] != yellow)
+            {
+                execute(cube, moveSets[MoveSetNames::YCOO], YCOOtotal);
+                i++;
+            } else if (faces[Facing::Up][0][2] != yellow)
+            {
+                if (i % 3 != 0)
+                {
+                    execute(cube, "U", YCOOtotal);
+                    j += 1;
+                } else execute(cube, "Y", YCOOtotal);
+            } else if (faces[Facing::Up][0][0] != yellow)
+            {
+                if (i % 3 != 0)
+                {
+                    execute(cube, "U2", YCOOtotal);
+                    j += 2;
+                } else execute(cube, "Y2", YCOOtotal);
+            } else if (faces[Facing::Up][0][2] != yellow)
+            {
+                if (i % 3 != 0)
+                {
+                    execute(cube, "U'", YCOOtotal);
+                    j += 3;
+                } else execute(cube, "Y'", YCOOtotal);
+            } else goto REPAIR_UP;
+            cube.copy(faces);
+        }
+
+        REPAIR_UP:
+        switch (j)
+        {
+        case 0:
+            break;
+        case 1:
+            execute(cube, "U'", YCOOtotal);
+            break;
+        case 2:
+            execute(cube, "U2", YCOOtotal);
+            break;
+        case 3:
+            execute(cube, "U", YCOOtotal);
+            break;
+        }
+    }
+    END_YCOO:
+    if (printSteps)
+    {
+        std::cout << "Yellow corner orientation:\n";
+        cube.draw();
+        std::cout << '\n';
+    }
+
     /* Count up moves and print stats*/
     {
         std::cout << "\nSolved!\n";
-        cube.draw();
-        std::cout << '\n';
+        if (!printSteps)
+        {
+            cube.draw();
+            std::cout << '\n';
+        }
 
         if (ctrs)
         {
