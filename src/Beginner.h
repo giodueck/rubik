@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-class Basic
+class Beginner
 {
     private:
 
@@ -35,7 +35,7 @@ class Basic
     public:
 
         // Constructor, sets moveSets
-        Basic();
+        Beginner();
 
         // Goes through the solving process
         //  Param:

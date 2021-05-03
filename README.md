@@ -1,8 +1,8 @@
 # A Rubik's Cube solver as a console program for windows.
-Version 2.0.1\
+Version 0.3.1\
 Changelog:
-- Beginner algorithm added in the Basic class.
-- Fixed a bug where sometimes the last step wouldn't complete.
+- CFOP class and simplified S_CFOP class declarations and files added. S_CFOP will be a simplified version of CFOP, which I have learned. CFOP will be true CFOP, with all the different algorithms.
+- Basic class and files renamed to Beginner.
 
 # Several ways to play around
 Pick wether an algorithm should solve the cube or you want to do it manually.

@@ -1,6 +1,7 @@
 #ifndef ALGORITHMS_H
 #define ALGORITHMS_H
 
-#include "Basic.h"
+#include "Beginner.h"
+#include "CFOP.h"
 
 #endif // ALGORITHMS_H

@@ -1,7 +1,7 @@
-#include "Basic.h"
+#include "Beginner.h"
 #include <iostream>
 
-Basic::Basic()
+Beginner::Beginner()
 {
     // white corners
     moveSets.push_back("R U R'");       //fru facing right
@@ -27,7 +27,7 @@ void reset(int &f, int &i, int &j, int &c)
     j = -1;
 }
 
-int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs, bool dbg)
+int Beginner::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs, bool dbg)
 {
     // Note: the naming of the steps stems from the tendency to orient the cube
     //  white down in humans; the program takes whatever color the center of
@@ -1188,7 +1188,7 @@ int Basic::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs, bool d
     }
 }
 
-void Basic::execute(Cube &cube, std::string sequence, int &ctr, bool debug)
+void Beginner::execute(Cube &cube, std::string sequence, int &ctr, bool debug)
 {
     if (debug) std::cout << "\tExecute " << sequence << '\n';
     Parser::parse(cube, sequence, ctr, false, debug);

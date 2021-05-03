@@ -1,5 +1,5 @@
 /* Rubik's Cube solver by Giovanni Dueck
-   Version 2.0.1 'Basic'
+   Version 0.3.1 'S-CFOP'
    27/04/2021
 */
 
@@ -60,7 +60,7 @@ int main()
                 std::cin >> ch;
                 if (ch == 'Y') steps = true;
 
-                Basic solver = Basic();
+                Beginner solver = Beginner();
                 std::cout << "Start:\n";
                 cube.draw();
                 std::cout << '\n';
