@@ -1,5 +1,5 @@
 /* Rubik's Cube solver by Giovanni Dueck
-   Version 0.3.1 'S-CFOP'
+   Version 0.3.X 'S-CFOP'
    27/04/2021
 */
 
