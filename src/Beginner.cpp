@@ -1171,6 +1171,7 @@ int Beginner::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs, boo
             ctrs[5] = YCOtotal;
             ctrs[6] = YCOOtotal;
         }
+        total = WCRtotal + WCOtotal + SLtotal + YCRtotal + YEtotal + YCOtotal + YCOOtotal;
         if (printStats)
         {
             std::cout << "\nStats:\n";
@@ -1182,14 +1183,8 @@ int Beginner::solve(Cube &cube, bool printStats, bool printSteps, int *ctrs, boo
             std::cout << '\t' << YCOtotal << " - Yellow corners\n";
             std::cout << '\t' << YCOOtotal << " - Yellow corner orientations\n";
             std::cout << '\t' << "_________________________________\n";
-            std::cout << '\t' << (total = WCRtotal + WCOtotal + SLtotal + YCRtotal + YEtotal + YCOtotal + YCOOtotal) << " - Total moves\n\n";
+            std::cout << '\t' << total << " - Total moves\n\n";
         }
         return total;
     }
-}
-
-void Beginner::execute(Cube &cube, std::string sequence, int &ctr, bool debug)
-{
-    if (debug) std::cout << "\tExecute " << sequence << '\n';
-    Parser::parse(cube, sequence, ctr, false, debug);
 }

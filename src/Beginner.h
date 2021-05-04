@@ -1,12 +1,11 @@
 #ifndef BASIC_H
 #define BASIC_H
 
-#include "Cube.h"
 #include "Parser.h"
-#include <string>
+#include "Solver.h"
 #include <vector>
 
-class Beginner
+class Beginner: public Solver
 {
     private:
 
@@ -45,8 +44,8 @@ class Beginner
         //  Return: total move count
         int solve(Cube &cube, bool printStats = false, bool printSteps = true, int *ctrs = NULL, bool dbg = false);
 
-        // Executes a move sequence silently and increments ctr
-        void execute(Cube &cube, std::string sequence, int &ctr, bool debug = false);
+        // // Executes a move sequence silently and increments ctr
+        // void execute(Cube &cube, std::string sequence, int &ctr, bool debug = false);
 
 };
 
