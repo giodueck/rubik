@@ -1,4 +1,6 @@
 # A Rubik's Cube solver as a console program for windows.
+See an [updated version](https://github.com/giodueck/crubik) of the project here.
+
 Version 0.3.3\
 Changelog:
 - Solver base class added. All solving algorithms will inherit from it.
